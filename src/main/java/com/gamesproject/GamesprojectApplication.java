@@ -1,4 +1,4 @@
-package com.example.gamesproject;
+package com.gamesproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

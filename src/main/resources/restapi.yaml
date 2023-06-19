@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Gamesproject API
+  description: An API where you can add, update and select different games from different organizations.
+
+paths:
+  /games:
+    get:
+      tags:
+        - games
+      summary: Returns a list of all games
+      description: Returns a list of all games
+      responses:
+        '200':
+          description: Successfully returned a list of artists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Games'
+    post:
+      tags:
+        - games
+      summary: Adds a new game
+      description: Adds a new game
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Games'
+      responses:
+        '200':
+          description: Successfully created a new games
+        '400':
+          description: Failed to create a new games
+  /games/{id}:
+    delete:
+      tags:
+        - games
+      summary: Deletes an existing game by Id
+      description: Delete an existing game by Id
+      parameters:
+        - name: id
+          in: path
+          description: Game id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          description: Invalid game value
+    put:
+      tags:
+        - games
+      summary: Update an existing game by Id
+      description: Update an existing game by Id
+      parameters:
+        - name: id
+          in: path
+          description: Game id to update
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          description: Invalid game value
+
+  /publisher:
+    get:
+      tags:
+        - publisher
+      summary: Returns a list of all publisher
+      description: Returns a list of all publisher
+      responses:
+        '200':
+          description: Successfully returned a list of publishers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Publisher'
+    post:
+      tags:
+        - publisher
+      summary: Adds a new publisher
+      description: Adds a new publisher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publisher'
+      responses:
+        '200':
+          description: Successfully created a new publisher
+        '400':
+          description: Failed to create a new publisher
+
+  /publisher/{id}:
+    delete:
+      tags:
+        - publisher
+      summary: Deletes an existing publisher by Id
+      description: Delete an existing publisher by Id
+      parameters:
+        - name: id
+          in: path
+          description: Publisher id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          description: Invalid publisher value
+    put:
+      tags:
+        - publisher
+      summary: Update an existing publisher by Id
+      description: Update an existing publisher by Id
+      parameters:
+        - name: id
+          in: path
+          description: Publisher id to update
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          description: Invalid publisher value
+components:
+  schemas:
+    Games:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        gameName:
+          type: string
+        publisher_id:
+          type: integer
+        releaseDate:
+          type: string
+          format: date
+        platform:
+          type: string
+    Publisher:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        publisherName:
+          type: string
