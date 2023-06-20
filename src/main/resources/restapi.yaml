@@ -35,6 +35,25 @@ paths:
           description: Successfully created a new games
         '400':
           description: Failed to create a new games
+    put:
+      tags:
+        - games
+      summary: Update an existing game by Id
+      description: Update an existing game by Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Games'
+      responses:
+        '400':
+          description: Invalid publisher value
+        '200':
+          description: Successfully updated game
+          content:
+            application/json:
+              schema:
+                type: integer
   /games/{id}:
     delete:
       tags:
@@ -50,22 +69,13 @@ paths:
             type: integer
       responses:
         '400':
-          description: Invalid game value
-    put:
-      tags:
-        - games
-      summary: Update an existing game by Id
-      description: Update an existing game by Id
-      parameters:
-        - name: id
-          in: path
-          description: Game id to update
-          required: true
-          schema:
-            type: integer
-      responses:
-        '400':
-          description: Invalid game value
+          description: Invalid publisher value
+        '200':
+          description: successfully deleted game
+          content:
+            application/json:
+              schema:
+                type: integer
     get:
       tags:
         - games
@@ -80,7 +90,13 @@ paths:
             type: integer
       responses:
         '400':
-          description: Invalid game value
+          description: Invalid publisher value
+        '200':
+          description: Successfully returned game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Games'
   /publisher:
     get:
       tags:
@@ -125,7 +141,7 @@ paths:
         '400':
           description: Invalid publisher value
         '200':
-          description: successfully deleted publisher
+          description: successfully updated publisher
           content:
             application/json:
               schema:

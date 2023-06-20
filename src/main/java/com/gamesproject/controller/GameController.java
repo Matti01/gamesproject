@@ -1,6 +1,9 @@
 package com.gamesproject.controller;
 
+import com.gamesproject.dao.GamesDao;
+import com.gamesproject.dao.GamesDao;
 import com.gamesproject.dto.Games;
+import com.gamesproject.dto.Publisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +15,6 @@ import java.util.Optional;
 
 @RestController
 public class GameController extends AbstractController implements GamesApi{
-
-    private final List<Games> gamesList  = new ArrayList<>();
     private final NamedParameterJdbcTemplate jdbcTemplate;
     public GameController(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -26,23 +27,34 @@ public class GameController extends AbstractController implements GamesApi{
 
     @Override
     public ResponseEntity<List<Games>> gamesGet() {
-        return getRespond(gamesList);
+        GamesDao gamesDao = new GamesDao(jdbcTemplate);
+        return getRespond(gamesDao.selectAll());
     }
 
     @Override
-    public ResponseEntity<Void> gamesIdDelete(Integer id) {
-        return GamesApi.super.gamesIdDelete(id);
+    public ResponseEntity<Games> gamesIdGet(Integer id) {
+        GamesDao gamesDao = new GamesDao(jdbcTemplate);
+        Optional<Games> games = gamesDao.selectById(id);
+        return getRespond(games.orElse(null));
+    }
+
+
+    @Override
+    public ResponseEntity<Integer> gamesIdDelete(Integer id) {
+        GamesDao gamesDao = new GamesDao(jdbcTemplate);
+        return deleteRespond(gamesDao.deleteById(id));
     }
 
     @Override
-    public ResponseEntity<Void> gamesIdPut(Integer id) {
-        return GamesApi.super.gamesIdPut(id);
-    }
-
-    @Override
-    public ResponseEntity<Void> gamesPost(Games games) {
-        gamesList.add(games);
+    public ResponseEntity<Void> gamesPost(Games game) {
+        GamesDao gamesDao = new GamesDao(jdbcTemplate);
+        gamesDao.insert(game);
         return postRespond();
     }
 
+    @Override
+    public ResponseEntity<Integer> gamesPut(Games game) {
+        GamesDao gamesDao = new GamesDao(jdbcTemplate);
+        return putRespond(gamesDao.update(game));
+    }
 }
