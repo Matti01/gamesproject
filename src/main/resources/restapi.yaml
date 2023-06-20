@@ -66,7 +66,21 @@ paths:
       responses:
         '400':
           description: Invalid game value
-
+    get:
+      tags:
+        - games
+      summary: Finds a Game by Id
+      description: Finds a Game by Id
+      parameters:
+        - name: id
+          in: path
+          description: Game id to find
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          description: Invalid game value
   /publisher:
     get:
       tags:
@@ -97,7 +111,25 @@ paths:
           description: Successfully created a new publisher
         '400':
           description: Failed to create a new publisher
-
+    put:
+      tags:
+        - publisher
+      summary: Update an existing publisher by Id
+      description: Update an existing publisher by Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publisher'
+      responses:
+        '400':
+          description: Invalid publisher value
+        '200':
+          description: successfully deleted publisher
+          content:
+            application/json:
+              schema:
+                type: integer
   /publisher/{id}:
     delete:
       tags:
@@ -114,27 +146,43 @@ paths:
       responses:
         '400':
           description: Invalid publisher value
-    put:
+        '200':
+          description: successfully deleted publisher
+          content:
+            application/json:
+              schema:
+                type: integer
+    get:
       tags:
         - publisher
-      summary: Update an existing publisher by Id
-      description: Update an existing publisher by Id
+      summary: Finds a Publisher by Id
+      description: Finds a Publisher by Id
       parameters:
         - name: id
           in: path
-          description: Publisher id to update
+          description: Publisher id to find
           required: true
           schema:
             type: integer
       responses:
         '400':
           description: Invalid publisher value
+        '200':
+          description: Successfully returned publisher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publisher'
 components:
   schemas:
     Games:
       type: object
       required:
         - id
+        - gameName
+        - publisher_id
+        - releaseDate
+        - platform
       properties:
         id:
           type: integer
@@ -151,6 +199,7 @@ components:
       type: object
       required:
         - id
+        - publisherName
       properties:
         id:
           type: integer
