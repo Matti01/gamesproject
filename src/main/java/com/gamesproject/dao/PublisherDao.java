@@ -62,7 +62,7 @@ public class PublisherDao {
         return  jdbcTemplate.update(DELETE_BY_ID, new MapSqlParameterSource().addValue("id", id));
     }
 
-    public int update(Publisher publisher) {
+public int update(Publisher publisher) {
         return  jdbcTemplate.update(UPDATE_BY_ID, new MapSqlParameterSource()
                 .addValue("id", publisher.getId())
                 .addValue("publisherName",publisher.getPublisherName()));

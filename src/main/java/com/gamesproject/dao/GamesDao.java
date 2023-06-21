@@ -1,6 +1,8 @@
 package com.gamesproject.dao;
 
 import com.gamesproject.dto.Games;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
