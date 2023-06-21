@@ -1,5 +1,7 @@
 # Gamesproject M295
 
+It is highly recommended to read this Readme to help set up the whole project.
+
 ## Database Setup
 
 This code creates and two tables for the games and publishers.

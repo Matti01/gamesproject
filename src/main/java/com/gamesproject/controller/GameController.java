@@ -88,12 +88,14 @@ public class GameController extends AbstractController implements GamesApi{
         try {
             GamesDao gamesDao = new GamesDao(jdbcTemplate);
             PublisherDao publisherDao = new PublisherDao(jdbcTemplate);
-            logger.info("Successfully updated a Game");
-            if (publisherDao.selectById(game.getId()).isEmpty()){
+            if (publisherDao.selectById(game.getPublisherId()).isEmpty()){
+                logger.warn("Selected publisher does not exist");
+                return errorResponse();
+            } else if (gamesDao.selectById(game.getId()).isEmpty()) {
                 logger.warn("Selected game does not exist");
                 return errorResponse();
-            }
-            else {
+            } else {
+                logger.info("Successfully updated a Game");
                 return putRespond(gamesDao.update(game));
             }
         }
