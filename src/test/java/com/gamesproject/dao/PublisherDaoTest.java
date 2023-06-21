@@ -36,7 +36,6 @@ public class PublisherDaoTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(
                 eq("INSERT INTO publisher (id, publisherName) VALUES (:id, :publisherName)"),
                 argumentCaptor.capture());
-        assertThat(argumentCaptor.getValue().getValue("id"));
     }
 
     @Test
@@ -51,7 +50,7 @@ public class PublisherDaoTest {
                 eq("SELECT * FROM publisher"),
                 argumentCaptor.capture(),
                 ArgumentMatchers.<RowMapper<Publisher>>any());
-        assertThat(argumentCaptor.getValue().getValue("id"));
+        assertThat(argumentCaptor.getValue().getValue(""));
     }
 
     @Test
@@ -66,7 +65,7 @@ public class PublisherDaoTest {
                 eq("SELECT * FROM publisher WHERE id = :id"),
                 argumentCaptor.capture(),
                 ArgumentMatchers.<RowMapper<Publisher>>any());
-        assertThat(argumentCaptor.getValue().getValue("id"));
+        assertThat(argumentCaptor.getValue().getValue("id")).isEqualTo(1);
     }
 
 

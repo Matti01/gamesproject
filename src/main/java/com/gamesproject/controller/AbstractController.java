@@ -22,4 +22,6 @@ public abstract class AbstractController {
     protected static <T> ResponseEntity<T> putRespond(T result) {
         return ResponseEntity.ok().build();
     }
+
+    protected static <T> ResponseEntity<T> errorResponse(){ return ResponseEntity.internalServerError().build();}
 }

@@ -1,12 +1,8 @@
 package com.gamesproject.dao;
 
 import com.gamesproject.dto.Publisher;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
